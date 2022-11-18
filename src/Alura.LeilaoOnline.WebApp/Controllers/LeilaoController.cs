@@ -11,13 +11,10 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
 {
     public class LeilaoController : Controller
     {
-
-        AppDbContext _context;
         LeilaoDao _leilaoDao;
 
         public LeilaoController()
         {
-            _context = new AppDbContext();
             _leilaoDao = new LeilaoDao();
         }        
        
@@ -53,7 +50,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         {
             ViewData["Categorias"] = _leilaoDao.BuscarCategorias();
             ViewData["Operacao"] = "Edição";
-            var leilao = _context.Leiloes.Find(id);
+            var leilao = _leilaoDao.BuscarPorId(id);
             if (leilao == null) return NotFound();
             return View("Form", leilao);
         }
